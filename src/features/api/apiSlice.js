@@ -5,6 +5,13 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
+    prepareHeaders: async (headers, { getState, endpoint }) => {
+      const token = getState()?.auth.accessToken;
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
 
   // An array of tag names to be used for data invalidation and re-fetching
@@ -13,11 +20,3 @@ export const apiSlice = createApi({
   // Define the endpoints
   endpoints: (builder) => ({}),
 });
-
-export const {
-  useGetNamesQuery,
-  useGetNameQuery,
-  usePostNameMutation,
-  usePatchNameMutation,
-  useDeleteNameMutation,
-} = apiSlice;

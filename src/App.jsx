@@ -3,9 +3,12 @@ import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import Conversation from "./pages/Conversation";
 import Inbox from "./pages/Inbox";
+import useAuthCheck from "./hooks/useAuthCheck";
 
 function App() {
-  return (
+  const authCheck = useAuthCheck();
+
+  return authCheck ? (
     <BrowserRouter>
       <Routes>
         <Route
@@ -26,6 +29,8 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
+  ) : (
+    <div> Checking Authentication... </div>
   );
 }
 

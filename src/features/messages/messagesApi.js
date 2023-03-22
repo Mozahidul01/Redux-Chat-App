@@ -1,12 +1,12 @@
 import { apiSlice } from "../api/apiSlice";
 
 export const messagesApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => {
+  endpoints: (builder) => ({
     // Endpoint for get data from the server
     getNames: builder.query({
       query: () => "/query-to-fetch-data",
       providesTags: ["Names"],
-    });
+    }),
 
     // Endpoint for get Individual data from the server
     getName: builder.query({
@@ -17,7 +17,7 @@ export const messagesApi = apiSlice.injectEndpoints({
           id: arg.id,
         },
       ],
-    });
+    }),
 
     // Endpoint for posting data to the server
     postName: builder.mutation({
@@ -27,7 +27,7 @@ export const messagesApi = apiSlice.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["Names"],
-    });
+    }),
 
     // Endpoint for updating data on the server
     patchName: builder.mutation({
@@ -43,7 +43,7 @@ export const messagesApi = apiSlice.injectEndpoints({
           id: arg.id,
         },
       ],
-    });
+    }),
 
     // Endpoint for deleting data from the server
     deleteName: builder.mutation({
@@ -52,6 +52,6 @@ export const messagesApi = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: ["Names"],
-    });
-  },
+    }),
+  }),
 });

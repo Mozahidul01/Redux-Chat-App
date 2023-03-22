@@ -1,57 +1,70 @@
 import { apiSlice } from "../api/apiSlice";
+import { userLoggedIn } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => {
-    // Endpoint for get data from the server
-    getNames: builder.query({
-      query: () => "/query-to-fetch-data",
-      providesTags: ["Names"],
-    });
-
-    // Endpoint for get Individual data from the server
-    getName: builder.query({
-      query: ({ id }) => `/query-to-fetch-data/${id}`,
-      providesTags: (result, error, arg) => [
-        {
-          type: "Name",
-          id: arg.id,
-        },
-      ],
-    });
-
-    // Endpoint for posting data to the server
-    postName: builder.mutation({
+  endpoints: (builder) => ({
+    // Endpoint for REGISTER
+    register: builder.mutation({
       query: (data) => ({
-        url: "/query-to-post-data",
+        url: "/register",
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Names"],
-    });
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
 
-    // Endpoint for updating data on the server
-    patchName: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/query-to-update-data/${id}`,
-        method: "PATCH",
+          localStorage.setItem(
+            "auth",
+            JSON.stringify({
+              accessToken: result.data.accessToken,
+              user: result.data.user,
+            })
+          );
+
+          dispatch(
+            userLoggedIn({
+              accessToken: result.data.accessToken,
+              user: result.data.user,
+            })
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      },
+    }),
+
+    // Endpoint for LOGIN
+    login: builder.mutation({
+      query: (data) => ({
+        url: "/login",
+        method: "POST",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => [
-        "Names",
-        {
-          type: "Name",
-          id: arg.id,
-        },
-      ],
-    });
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
 
-    // Endpoint for deleting data from the server
-    deleteName: builder.mutation({
-      query: ({ id }) => ({
-        url: `/query-to-delete-data/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Names"],
-    });
-  },
+          localStorage.setItem(
+            "auth",
+            JSON.stringify({
+              accessToken: result.data.accessToken,
+              user: result.data.user,
+            })
+          );
+
+          dispatch(
+            userLoggedIn({
+              accessToken: result.data.accessToken,
+              user: result.data.user,
+            })
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      },
+    }),
+  }),
 });
+
+export const { useRegisterMutation, useLoginMutation } = authApi;
