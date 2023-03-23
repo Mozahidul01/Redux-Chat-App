@@ -16,16 +16,16 @@
   "conversations": [
     {
       "id": 1,
-      "participants": "sumit@learnwithsumit.com-akash@learnwithsumit.com",
+      "participants": "mozo.postbox@gmail.com-admin@gmail.com",
       "users": [
         {
-          "email": "sumit@learnwithsumit.com",
-          "name": "Sumit Saha",
+          "email": "mozo.postbox@gmail.com",
+          "name": "Mozahidul",
           "id": 1
         },
         {
-          "email": "akash@learnwithsumit.com",
-          "name": "Akash Ahmed",
+          "email": "admin@gmail.com",
+          "name": "Admin",
           "id": 2
         }
       ],
@@ -34,20 +34,20 @@
     },
     {
       "id": 2,
-      "participants": "sumit@learnwithsumit.com-saad@learnwithsumit.com",
+      "participants": "mozo.postbox@gmail.com-sumit@learnwithsumit.com",
       "users": [
         {
-          "email": "sumit@learnwithsumit.com",
-          "name": "Sumit Saha",
+          "email": "mozo.postbox@gmail.com",
+          "name": "Mozahidul",
           "id": 1
         },
         {
-          "email": "akash@learnwithsumit.com",
-          "name": "Saad Hasan",
+          "email": "sumit@learnwithsumit.com",
+          "name": "Sumit Saha",
           "id": 3
         }
       ],
-      "message": "How are you?",
+      "message": "Are you there?",
       "timestamp": 1661976143678
     }
   ],
@@ -56,13 +56,13 @@
       "id": 1,
       "conversationId": 1,
       "sender": {
-        "email": "sumit@learnwithsumit.com",
-        "name": "Sumit Saha",
+        "email": "mozo.postbox@gmail.com",
+        "name": "Mozahidul",
         "id": 1
       },
       "receiver": {
-        "email": "akash@learnwithsumit.com",
-        "name": "Akash Ahmed",
+        "email": "admin@gmail.com",
+        "name": "Admin",
         "id": 2
       },
       "message": "Hello",
@@ -72,13 +72,13 @@
       "id": 2,
       "conversationId": 1,
       "sender": {
-        "email": "akash@learnwithsumit.com",
-        "name": "Akash Ahmed",
+        "email": "admin@gmail.com",
+        "name": "Admin",
         "id": 2
       },
       "receiver": {
-        "email": "sumit@learnwithsumit.com",
-        "name": "Sumit Saha",
+        "email": "mozo.postbox@gmail.com",
+        "name": "Mozahidul",
         "id": 1
       },
       "message": "How are you?",

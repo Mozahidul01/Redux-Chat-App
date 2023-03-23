@@ -2,56 +2,15 @@ import { apiSlice } from "../api/apiSlice";
 
 export const messagesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // Endpoint for get data from the server
-    getNames: builder.query({
-      query: () => "/query-to-fetch-data",
+    // Endpoint for get messages from the server
+    getMessages: builder.query({
+      query: (id) =>
+        `/messages?conversationId=${id}&_sort=timestamp&_order=desc_page=1&_limit=${
+          import.meta.env.VITE_MESSAGES_LIMIT
+        }`,
       providesTags: ["Names"],
-    }),
-
-    // Endpoint for get Individual data from the server
-    getName: builder.query({
-      query: ({ id }) => `/query-to-fetch-data/${id}`,
-      providesTags: (result, error, arg) => [
-        {
-          type: "Name",
-          id: arg.id,
-        },
-      ],
-    }),
-
-    // Endpoint for posting data to the server
-    postName: builder.mutation({
-      query: (data) => ({
-        url: "/query-to-post-data",
-        method: "POST",
-        body: data,
-      }),
-      invalidatesTags: ["Names"],
-    }),
-
-    // Endpoint for updating data on the server
-    patchName: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/query-to-update-data/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result, error, arg) => [
-        "Names",
-        {
-          type: "Name",
-          id: arg.id,
-        },
-      ],
-    }),
-
-    // Endpoint for deleting data from the server
-    deleteName: builder.mutation({
-      query: ({ id }) => ({
-        url: `/query-to-delete-data/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Names"],
     }),
   }),
 });
+
+export const { useGetMessagesQuery } = messagesApi;
