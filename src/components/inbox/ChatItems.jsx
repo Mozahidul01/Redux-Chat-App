@@ -1,4 +1,4 @@
-import { useGetConversationQuery } from "../../features/conversations/conversationsApi";
+import { useGetConversationsQuery } from "../../features/conversations/conversationsApi";
 import ChatItem from "./ChatItem";
 import { useSelector } from "react-redux";
 import Error from "./../ui/Error";
@@ -14,7 +14,7 @@ export default function ChatItems() {
     isLoading,
     isError,
     error,
-  } = useGetConversationQuery(email);
+  } = useGetConversationsQuery(email);
 
   //Decide what to render
   let content = null;
@@ -23,7 +23,7 @@ export default function ChatItems() {
     content = <li className="m-2 text-center text-xl">Loading...</li>;
   }
 
-  if (!isLoading && isError) {
+  if (!isLoading && isError && error?.data) {
     content = (
       <li className="m-2 text-center font-medium uppercase">
         <Error message={error?.data} />
@@ -42,24 +42,27 @@ export default function ChatItems() {
   }
 
   if (!isLoading && !isError && conversation?.length > 0) {
-    content = conversation.map((conversation) => {
-      const { id, users, message, timestamp } = conversation;
-      const partner = getChatPartner(users, email);
-      const { name, email: partnerEmail } = partner;
-      return (
-        <li key={id}>
-          <ChatItem
-            id={id}
-            avatar={gravatarUrl(partnerEmail, {
-              size: 80,
-            })}
-            name={name}
-            lastMessage={message}
-            lastTime={moment(timestamp).fromNow()}
-          />
-        </li>
-      );
-    });
+    content = conversation
+      .slice()
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .map((conversation) => {
+        const { id, users, message, timestamp } = conversation;
+        const partner = getChatPartner(users, email);
+        const { name, email: partnerEmail } = partner;
+        return (
+          <li key={id}>
+            <ChatItem
+              id={id}
+              avatar={gravatarUrl(partnerEmail, {
+                size: 80,
+              })}
+              name={name}
+              lastMessage={message}
+              lastTime={moment(timestamp).fromNow()}
+            />
+          </li>
+        );
+      });
   }
 
   return <ul>{content}</ul>;

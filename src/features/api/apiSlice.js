@@ -15,7 +15,7 @@ export const apiSlice = createApi({
   }),
 
   // An array of tag names to be used for data invalidation and re-fetching
-  tagTypes: ["Names", "Name"],
+  tagTypes: [],
 
   // Define the endpoints
   endpoints: (builder) => ({}),

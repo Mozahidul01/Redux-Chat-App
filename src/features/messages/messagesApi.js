@@ -8,9 +8,17 @@ export const messagesApi = apiSlice.injectEndpoints({
         `/messages?conversationId=${id}&_sort=timestamp&_order=desc_page=1&_limit=${
           import.meta.env.VITE_MESSAGES_LIMIT
         }`,
-      providesTags: ["Names"],
+    }),
+
+    // Endpoint for add messages to the server
+    addMessages: builder.mutation({
+      query: (data) => ({
+        url: `/messages`,
+        method: "POST",
+        body: data,
+      }),
     }),
   }),
 });
 
-export const { useGetMessagesQuery } = messagesApi;
+export const { useGetMessagesQuery, useAddMessagesMutation } = messagesApi;
