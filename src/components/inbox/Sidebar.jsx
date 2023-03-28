@@ -21,13 +21,13 @@ export default function Sidebar() {
           <path d="M132.189,117.092c-4.142,0-7.5,3.357-7.5,7.5v54.844H15.001V69.748h54.844c4.142,0,7.5-3.357,7.5-7.5s-3.358-7.5-7.5-7.5 H7.501c-4.142,0-7.5,3.357-7.5,7.5v124.687c0,4.143,3.358,7.5,7.5,7.5h124.687c4.142,0,7.5-3.357,7.5-7.5v-62.344 C139.689,120.449,136.331,117.092,132.189,117.092z" />
         </svg>
       </div>
-      <div className="overflow-auto h-[calc(100vh_-_129px)]">
-        <ChatItems />
-      </div>
       <Modal
         open={opened}
         control={controlModal}
       />
+      <div className="overflow-auto h-[calc(100vh_-_129px)]">
+        <ChatItems />
+      </div>
     </div>
   );
 }
